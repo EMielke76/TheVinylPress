@@ -1,3 +1,4 @@
+@isTest
 public with sharing class TheVinylPress {
     // This class will handle the manufacturing of records for testing purposes
     // It will take in an Object, a RecordType, an optional number of records to create,
