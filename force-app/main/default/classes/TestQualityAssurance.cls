@@ -58,6 +58,6 @@ public with sharing class TestQualityAssurance {
         Boolean result = QualityAssurance.validateObjectData(objectName, recordTypeName);
         Test.stopTest();
 
-        System.assertEquals(true, result, 'The method returns FALSE given a valid Object and Invalid Record Type');
+        System.assertEquals(false, result, 'The method returns FALSE given a valid Object and Invalid Record Type');
     }
 }
