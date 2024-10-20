@@ -6,16 +6,36 @@ public with sharing class TheVinylPress {
         // If the Map contains the "Default" key, default values will be set for all required fields 
     // There will be a data purity class (QualityAssurance) creating to ensure all user provided data is valid 
     
-    public static void manufacture(String leObject, String leRecordType, Map<String, Object> leDetails){
-        //call QualityAssurance to validate that the leObject and leRecordType are both valid
-            //If yes
-                Integer leOrders = 1;
-                massManufacture(leObject, leRecordType, leDetails, leOrders)
-            //If no
-                // throw an error
+    public static void manufacture(Integer orders, String objectName, String recordTypeName, Map<String, Object> details) {
+        //Validate data provided by user
+        if (!QualityAssurance.validateObjectData(objectName, recordTypeName)) {
+            throw new QualityAssuranceException('Invalid object or record type');
+        }
+
+        //**WIP**//
+        // consider moving details validation into the .validateObjectData method
+        if (details == null || details.isEmpty()) {
+            throw new IllegalArgumentException('Details map cannot be null or empty');
+        }
+
+        // Set number of records to create to 1
+        Integer orders = 1;
+
+        //**WIP**//
+        // Add a Key => 
+        
+        try {
+            massManufacture(objectName, recordTypeName, details, orders);
+        } catch (Exception e) {
+            System.debug(LoggingLevel.ERROR, 'Error in manufacture method: ' + e.getMessage());
+            throw new ManufactureException('Failed to manufacture object: ' + e.getMessage(), e);
+        }
     }
 
-    public static void massManufacture(){
-
+    private static void massManufacture(String objectName, String recordTypeName, Map<String, Object> details, Integer orders) {
+        // Implementation of massManufacture
     }
+
+    public class ManufactureException extends Exception {}
+    public class QualityAssuranceException extends Exception {}
 }
